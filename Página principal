@@ -1,0 +1,67 @@
+import { useState, useEffect } from "react";
+
+export default function Home() {
+  const [timeLeft, setTimeLeft] = useState({});
+
+  useEffect(() => {
+    const target = new Date("2026-07-04T08:00:00");
+
+    const interval = setInterval(() => {
+      const now = new Date();
+      const diff = target - now;
+
+      setTimeLeft({
+        days: Math.floor(diff / (1000 * 60 * 60 * 24)),
+        hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
+        minutes: Math.floor((diff / 1000 / 60) % 60),
+        seconds: Math.floor((diff / 1000) % 60),
+      });
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="container">
+      <header className="hero">
+        <img src="/logo.png" className="logo" />
+
+        <h1>PENEIRA OFICIAL STARSOCCER</h1>
+        <h2>Inscrição Gratuita</h2>
+
+        <div className="countdown">
+          {timeLeft.days}d {timeLeft.hours}h {timeLeft.minutes}m {timeLeft.seconds}s
+        </div>
+
+        <a href="#form" className="btn">Inscreva-se Agora</a>
+      </header>
+
+      <section className="info">
+        <p><b>Data:</b> 04/07/2026</p>
+        <p><b>Horário:</b> 08:00</p>
+        <p><b>Local:</b> Av. Lúcio Bittencourt, 1130 - Sapucaia do Sul/RS</p>
+        <p><b>WhatsApp:</b> (51) 99194-4930</p>
+      </section>
+
+      <section id="form">
+        <h2>Formulário de Inscrição</h2>
+
+        <form action="/api/inscrever" method="POST">
+          <input name="nome" placeholder="Nome do atleta" required />
+          <input name="idade" placeholder="Idade" required />
+          <input name="cidade" placeholder="Cidade" required />
+          <input name="posicao" placeholder="Posição" />
+          <input name="responsavel" placeholder="Nome do responsável" />
+          <input name="whatsapp" placeholder="WhatsApp" required />
+          <input name="email" placeholder="E-mail" />
+          <button type="submit">Enviar Inscrição</button>
+        </form>
+      </section>
+
+      <footer>
+        <a href="https://wa.me/5551991944930">WhatsApp</a>
+        <a href="https://instagram.com/star_soccer2023">Instagram</a>
+      </footer>
+    </div>
+  );
+}
