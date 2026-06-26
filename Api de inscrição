@@ -1,0 +1,15 @@
+export default async function handler(req, res) {
+  if (req.method === "POST") {
+    const data = req.body;
+
+    // Aqui você pode conectar com Supabase ou Firebase depois
+    console.log("Nova inscrição:", data);
+
+    // Simula envio para email
+    console.log("Enviando para: jefersonuber1992@gmail.com");
+
+    return res.status(200).json({ message: "Inscrição recebida com sucesso!" });
+  }
+
+  res.status(405).end();
+}
