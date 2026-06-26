@@ -1,0 +1,25 @@
+import { useEffect, useState } from "react";
+
+export default function Admin() {
+  const [inscritos, setInscritos] = useState([]);
+
+  useEffect(() => {
+    fetch("/api/listar")
+      .then(res => res.json())
+      .then(data => setInscritos(data));
+  }, []);
+
+  return (
+    <div>
+      <h1>Painel StarSoccer</h1>
+
+      <h2>Total: {inscritos.length}</h2>
+
+      {inscritos.map((i, index) => (
+        <div key={index}>
+          {i.nome} - {i.cidade} - {i.whatsapp}
+        </div>
+      ))}
+    </div>
+  );
+}
